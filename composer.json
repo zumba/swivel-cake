@@ -1,0 +1,34 @@
+{
+	"name": "zumba/swivel-cake",
+	"type": "cakephp-plugin",
+	"description": "A CakePHP plugin to provide easy access to zumba/swivel",
+	"keywords": ["cakephp", "plugin", "swivel", "helper", "component", "behavior"],
+	"homepage": "https://github.com/zumba/swivel-cake",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Stephen Young",
+			"homepage": "http://tech.zumba.com"
+		}
+	],
+	"require": {
+		"php": ">=5.4",
+		"composer/installers": "1.0.*",
+		"zumba/swivel": "*@dev"
+	},
+	"repositories": [
+        {
+            "type": "vcs",
+            "url":  "git@github.com:zumba/swivel.git"
+        }
+    ],
+	"support": {
+		"source": "https://github.com/zumba/swivel-cake"
+	},
+	"config": {
+        "vendor-dir": "Vendor"
+    },
+	"extra": {
+		"installer-name": "Swivel"
+	}
+}
