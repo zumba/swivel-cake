@@ -36,12 +36,13 @@ class SwivelableBehavior extends ModelBehavior {
 	/**
 	 * Syntactic sugar for creating simple feature toggles (ternary style)
 	 *
+	 * @param Model $model
 	 * @param string $slug
 	 * @param mixed $a
 	 * @param mixed $b
 	 * @return mixed
 	 */
-	public function invoke($slug, $a, $b = null) {
+	public function invoke(Model $model, $slug, $a, $b = null) {
 		return $this->loader->getManager()->invoke($slug, $a, $b);
 	}
 }
