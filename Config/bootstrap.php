@@ -1,13 +1,5 @@
 <?php
 
-!defined('SWIVEL_DIR') && define('SWIVEL_DIR', dirname(__DIR__));
-!defined('SWIVEL_VENDOR') && define('SWIVEL_VENDOR', SWIVEL_DIR . '/Vendor/');
-
-/**
- * Get the composer autoloader
- */
-require_once SWIVEL_VENDOR . 'autoload.php';
-
 /**
  * Load Swivel plugin dsefaults
  */
