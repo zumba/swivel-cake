@@ -3,7 +3,7 @@
 $config = [
 	'Swivel' => [
 		'Cookie' => [
-			'name' => 'Swivel.Bucket',
+			'name' => 'Swivel_Bucket',
 			'expire' => 0,
 			'path' => '/',
 			'domain' => env('HTTP_HOST'),
