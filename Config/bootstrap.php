@@ -12,8 +12,6 @@ if (file_exists(APP . 'Config/swivel.php')) {
 	Configure::load('swivel');
 }
 
-//ClassRegistry::addObject(Configure::read('Swivel.LoaderAlias'), new SwivelLoader($options));
-
 App::uses('CakeEventManager', 'Event');
 
 /**
