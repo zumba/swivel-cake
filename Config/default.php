@@ -10,6 +10,7 @@ $config = [
 			'secure' => false,
 			'httpOnly' => false
 		],
+		'BucketIndex' => null,
 		'LoaderAlias' => 'SwivelManager',
 		'Logger' => null,
 		'Metrics' => null,
