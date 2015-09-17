@@ -14,14 +14,8 @@
 	"require": {
 		"php": ">=5.4",
 		"composer/installers": "1.0.*",
-		"zumba/swivel": "0.0.*"
+		"zumba/swivel": "v1.0.0"
 	},
-	"repositories": [
-        {
-            "type": "vcs",
-            "url":  "git@github.com:zumba/swivel.git"
-        }
-    ],
 	"support": {
 		"source": "https://github.com/zumba/swivel-cake"
 	},
