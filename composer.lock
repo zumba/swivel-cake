@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3a7eee2e3766a73e824e6dc7049e12da",
+    "hash": "1fac8007941b62344dee853329cdd402",
     "packages": [
         {
             "name": "composer/installers",
@@ -141,16 +141,16 @@
         },
         {
             "name": "zumba/swivel",
-            "version": "v0.0.1",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zumba/swivel.git",
-                "reference": "36bd0681491f90c02eb7e864c335dc5bead0bdd0"
+                "reference": "bd40d1e46c9c368b463c24f5a2ba2f96ad99f229"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zumba/swivel/zipball/36bd0681491f90c02eb7e864c335dc5bead0bdd0",
-                "reference": "36bd0681491f90c02eb7e864c335dc5bead0bdd0",
+                "url": "https://api.github.com/repos/zumba/swivel/zipball/bd40d1e46c9c368b463c24f5a2ba2f96ad99f229",
+                "reference": "bd40d1e46c9c368b463c24f5a2ba2f96ad99f229",
                 "shasum": ""
             },
             "require": {
@@ -168,6 +168,7 @@
                     "Zumba\\Swivel\\": "./src"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -189,11 +190,7 @@
                 "strategy",
                 "toggle"
             ],
-            "support": {
-                "source": "https://github.com/zumba/swivel/tree/v0.0.1",
-                "issues": "https://github.com/zumba/swivel/issues"
-            },
-            "time": "2015-01-23 16:54:56"
+            "time": "2015-09-17 17:31:19"
         }
     ],
     "packages-dev": [],
