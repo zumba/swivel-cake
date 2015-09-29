@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1fac8007941b62344dee853329cdd402",
+    "hash": "13f5be6b5883bdabc0a38b8fa372004f",
     "packages": [
         {
             "name": "composer/installers",
@@ -141,16 +141,16 @@
         },
         {
             "name": "zumba/swivel",
-            "version": "v1.0.0",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zumba/swivel.git",
-                "reference": "bd40d1e46c9c368b463c24f5a2ba2f96ad99f229"
+                "reference": "7fd4fbc93ba7d8acb57035f4faaf04e4c15b4324"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zumba/swivel/zipball/bd40d1e46c9c368b463c24f5a2ba2f96ad99f229",
-                "reference": "bd40d1e46c9c368b463c24f5a2ba2f96ad99f229",
+                "url": "https://api.github.com/repos/zumba/swivel/zipball/7fd4fbc93ba7d8acb57035f4faaf04e4c15b4324",
+                "reference": "7fd4fbc93ba7d8acb57035f4faaf04e4c15b4324",
                 "shasum": ""
             },
             "require": {
@@ -190,7 +190,7 @@
                 "strategy",
                 "toggle"
             ],
-            "time": "2015-09-17 17:31:19"
+            "time": "2015-09-29 20:14:51"
         }
     ],
     "packages-dev": [],
