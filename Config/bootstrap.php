@@ -12,42 +12,39 @@ if (file_exists(APP . 'Config/swivel.php')) {
 	Configure::load('swivel');
 }
 
-App::uses('CakeEventManager', 'Event');
+/**
+ * Get swivel configuration
+ */
+$options = Configure::read('Swivel');
 
 /**
- * Attach to Dispatcher.beforeDispatch event
+ * If no bucket index was configured, swivel-cake will try to handle it with a cookie.
  */
-CakeEventManager::instance()->attach(function($event) {
-
-	$options = Configure::read('Swivel');
+if (empty($options['BucketIndex'])) {
 
 	/**
-	 * If no bucket index was configured, swivel-cake will try to handle it with a cookie.
+	 * Get the bucket index from the cookie, or a random bucket
 	 */
-	if (empty($options['BucketIndex'])) {
-
-		/**
-		 * Get the bucket index from the cookie. Will set the cookie if it is not set.
-		 */
-		$key = $options['Cookie']['name'];
-		if (isset($_COOKIE[$key])) {
-			$index = $_COOKIE[$key];
-		} else {
-			$index = mt_rand(1, 10);
-			$event->data['response']->cookie($options['Cookie'] + ['value' => $index]);
-		}
-
-		/**
-		 * Add the index to the SwivelLoader options
-		 */
-		$options['BucketIndex'] = $index;
-	}
+	$key = isset($options['Cookie']['name']) ? $options['Cookie']['name'] : 'Swivel_Bucket';
+	$index = isset($_COOKIE[$key]) ? $_COOKIE[$key] : mt_rand(1, 10);
 
 	/**
-	 * Register the SwivelLoader for lazy loading.
+	 * Add the index to the SwivelLoader options
 	 */
-	App::uses('ClassRegistry', 'Utility');
-	App::uses('SwivelLoader', 'Swivel.Lib');
-	ClassRegistry::addObject($options['LoaderAlias'], new SwivelLoader($options));
+	$options['BucketIndex'] = $index;
+}
 
+/**
+ * Register the SwivelLoader for lazy loading.
+ */
+App::uses('ClassRegistry', 'Utility');
+App::uses('SwivelLoader', 'Swivel.Lib');
+ClassRegistry::addObject($options['LoaderAlias'], new SwivelLoader($options));
+
+/**
+ * Attach to Dispatcher.beforeDispatch event to set the cookie
+ */
+App::uses('CakeEventManager', 'Event');
+CakeEventManager::instance()->attach(function($event) use ($options) {
+	$event->data['response']->cookie($options['Cookie'] + ['value' => $options['BucketIndex']]);
 }, 'Dispatcher.beforeDispatch');
