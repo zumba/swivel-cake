@@ -141,16 +141,16 @@
         },
         {
             "name": "zumba/swivel",
-            "version": "v1.1.0",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zumba/swivel.git",
-                "reference": "7fd4fbc93ba7d8acb57035f4faaf04e4c15b4324"
+                "reference": "a86cab1da18f4daae21099fb38ab39a581c1f559"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zumba/swivel/zipball/7fd4fbc93ba7d8acb57035f4faaf04e4c15b4324",
-                "reference": "7fd4fbc93ba7d8acb57035f4faaf04e4c15b4324",
+                "url": "https://api.github.com/repos/zumba/swivel/zipball/a86cab1da18f4daae21099fb38ab39a581c1f559",
+                "reference": "a86cab1da18f4daae21099fb38ab39a581c1f559",
                 "shasum": ""
             },
             "require": {
@@ -190,7 +190,7 @@
                 "strategy",
                 "toggle"
             ],
-            "time": "2015-09-29 20:14:51"
+            "time": "2015-10-08 19:28:17"
         }
     ],
     "packages-dev": [],
