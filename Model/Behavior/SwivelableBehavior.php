@@ -5,21 +5,19 @@ App::uses('ModelBehavior', 'Model');
 class SwivelableBehavior extends ModelBehavior {
 
 	/**
-	 * @var \Zumba\Swivel\Manager
+	 * @var string
 	 */
-	protected $loader;
+	protected $loaderAlias;
 
 	/**
 	 * Initialize the behavior
-	 *
-	 * Creates the Swivelmanager object
 	 *
 	 * @param Model $model
 	 * @param array $settings
 	 * @return void
 	 */
 	public function setup(Model $Model, $settings = []) {
-		$this->loader = ClassRegistry::getObject(Configure::read('Swivel.LoaderAlias'));
+		$this->loaderAlias = Configure::read('Swivel.LoaderAlias');
 	}
 
 	/**
@@ -30,7 +28,7 @@ class SwivelableBehavior extends ModelBehavior {
 	 * @return \Zumba\Swivel\Builder
 	 */
 	public function forFeature(Model $model, $slug) {
-		return $this->loader->getManager()->forFeature($slug);
+		return ClassRegistry::getObject($this->loaderAlias)->getManager()->forFeature($slug);
 	}
 
 	/**
@@ -43,6 +41,6 @@ class SwivelableBehavior extends ModelBehavior {
 	 * @return mixed
 	 */
 	public function invoke(Model $model, $slug, $a, $b = null) {
-		return $this->loader->getManager()->invoke($slug, $a, $b);
+		return ClassRegistry::getObject($this->loaderAlias)->getManager()->invoke($slug, $a, $b);
 	}
 }
