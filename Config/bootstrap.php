@@ -46,5 +46,8 @@ ClassRegistry::addObject($options['LoaderAlias'], new SwivelLoader($options));
  */
 App::uses('CakeEventManager', 'Event');
 CakeEventManager::instance()->attach(function($event) use ($options) {
-	$event->data['response']->cookie($options['Cookie'] + ['value' => $options['BucketIndex']]);
+	$cookieName = $options['Cookie']['name'];
+	if (!isset($_COOKIE[$cookieName]) || $_COOKIE[$cookieName] != $options['BucketIndex']) {
+		$event->data['response']->cookie($options['Cookie'] + ['value' => $options['BucketIndex']]);
+	}
 }, 'Dispatcher.beforeDispatch');
