@@ -166,7 +166,7 @@ class UsersController extends AppController
     {
         $this->set('users', $this->User->find(/* ... */));
         $this->Swivel->invoke('MyCoolWidget', function() {
-            return $this->set('widget, $this->MyCoolWidget->find(/* ... */));
+            return $this->set('widget', $this->MyCoolWidget->find(/* ... */));
         });
     }
 
