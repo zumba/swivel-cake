@@ -9,7 +9,7 @@ Configure::load('Swivel.default');
  * Load application config for swivel.  Will overwrite the defaults.
  */
 if (file_exists(APP . 'Config/swivel.php')) {
-	Configure::load('swivel');
+    Configure::load('swivel');
 }
 
 /**
@@ -22,16 +22,16 @@ $options = Configure::read('Swivel');
  */
 if (empty($options['BucketIndex'])) {
 
-	/**
-	 * Get the bucket index from the cookie, or a random bucket
-	 */
-	$key = isset($options['Cookie']['name']) ? $options['Cookie']['name'] : 'Swivel_Bucket';
-	$index = isset($_COOKIE[$key]) ? $_COOKIE[$key] : mt_rand(1, 10);
+    /**
+     * Get the bucket index from the cookie, or a random bucket
+     */
+    $key = isset($options['Cookie']['name']) ? $options['Cookie']['name'] : 'Swivel_Bucket';
+    $index = isset($_COOKIE[$key]) ? $_COOKIE[$key] : mt_rand(1, 10);
 
-	/**
-	 * Add the index to the SwivelLoader options
-	 */
-	$options['BucketIndex'] = $index;
+    /**
+     * Add the index to the SwivelLoader options
+     */
+    $options['BucketIndex'] = $index;
 }
 
 /**
@@ -45,9 +45,9 @@ ClassRegistry::addObject($options['LoaderAlias'], new SwivelLoader($options));
  * Attach to Dispatcher.beforeDispatch event to set the cookie
  */
 App::uses('CakeEventManager', 'Event');
-CakeEventManager::instance()->attach(function($event) use ($options) {
-	$cookieName = $options['Cookie']['name'];
-	if (!isset($_COOKIE[$cookieName]) || $_COOKIE[$cookieName] != $options['BucketIndex']) {
-		$event->data['response']->cookie($options['Cookie'] + ['value' => $options['BucketIndex']]);
-	}
+CakeEventManager::instance()->attach(function ($event) use ($options) {
+    $cookieName = $options['Cookie']['name'];
+    if (!isset($_COOKIE[$cookieName]) || $_COOKIE[$cookieName] != $options['BucketIndex']) {
+        $event->data['response']->cookie($options['Cookie'] + ['value' => $options['BucketIndex']]);
+    }
 }, 'Dispatcher.beforeDispatch');
