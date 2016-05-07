@@ -2,6 +2,7 @@
 
 App::uses('AppModel', 'Model');
 
-class SwivelAppModel extends AppModel {
+class SwivelAppModel extends AppModel
+{
 
 }
