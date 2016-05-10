@@ -9,7 +9,7 @@ class SwivelTestController extends Controller {
 
 class SwivelComponentTest extends CakeTestCase {
 
-	public $fixtures = ['plugin.swivel_cake.swivel_feature'];
+	public $fixtures = ['plugin.swivel.swivel_feature'];
 
 	public function setUp() {
 		$this->Controller = new SwivelTestController(new CakeRequest(), new CakeResponse());
