@@ -15,7 +15,7 @@ class SwivelComponentTest extends CakeTestCase {
 		$this->Controller = new SwivelTestController(new CakeRequest(), new CakeResponse());
 		$this->Controller->constructClasses();
 		$this->Swivel = $this->Controller->Swivel;
-		$this->Swivel->startup($this->Controller);
+		$this->Swivel->initialize($this->Controller);
 	}
 	
 	public function testWorking() {
