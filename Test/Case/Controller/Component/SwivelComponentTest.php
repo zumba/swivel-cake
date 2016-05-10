@@ -1,7 +1,10 @@
 <?php
 
+App::uses('Controller', 'Controller');
+App::uses('SwivelComponent', 'Swivel.Controller/Component');
+
 class SwivelTestController extends Controller {
-	public $components = array('Swivel');
+	public $components = array('Swivel.Swivel');
 }
 
 class SwivelComponentTest extends CakeTestCase {
