@@ -7,7 +7,7 @@ php:
 
 env:
   global:
-    - PLUGIN_NAME=SwivelCake
+    - PLUGIN_NAME=Swivel
     - REQUIRE=""
 
   matrix:
