@@ -35,6 +35,7 @@ some of the configurations.
 
 | Configuration | Default Value | Description |
 | ------------- | ------------- | ----------- |
+| Cookie        | (config below) | Set this to `null` to not set a cookie at all. Useful for APIs. |
 | Cookie.name   | `Swivel_Bucket` | Cookie name used to store the client bucket number. |
 | Cookie.expire | `0` | Expiration, in seconds, of the cookie. Setting 0 means a session cookie. |
 | Cookie.path | `/` | Cookie's path. |
