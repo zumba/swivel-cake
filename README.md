@@ -80,7 +80,7 @@ buckets to your customers, you can do something like this:
 <?php
 
 // Saving bucket 1 for internal testing
-$bucketIndex = isset($\_COOKIE['Swivel\_Bucket']) ? $\_COOKIE['Swivel\_Bucket'] : mt_rand(2, 10);
+$bucketIndex = isset($_COOKIE['Swivel_Bucket']) ? $_COOKIE['Swivel_Bucket'] : mt_rand(2, 10);
 
 $config = [
     'Swivel' => [
