@@ -41,7 +41,7 @@ App::uses('ClassRegistry', 'Utility');
 App::uses('SwivelLoader', 'Swivel.Lib');
 ClassRegistry::addObject($options['LoaderAlias'], new SwivelLoader($options));
 
-if (!empty($options['Cookie'])) {
+if (!empty($options['Cookie']['enabled'])) {
     /**
      * Attach to Dispatcher.beforeDispatch event to set the cookie
      */
