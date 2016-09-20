@@ -35,6 +35,7 @@ some of the configurations.
 
 | Configuration | Default Value | Description |
 | ------------- | ------------- | ----------- |
+| Cookie.enabled | `true` | If cookie should be set at all |
 | Cookie.name   | `Swivel_Bucket` | Cookie name used to store the client bucket number. |
 | Cookie.expire | `0` | Expiration, in seconds, of the cookie. Setting 0 means a session cookie. |
 | Cookie.path | `/` | Cookie's path. |
@@ -54,21 +55,22 @@ want to override. Here is the default configuration file:
 <?php
 
 $config = [
-	'Swivel' => [
-		'Cookie' => [
-			'name' => 'Swivel_Bucket',
-			'expire' => 0,
-			'path' => '/',
-			'domain' => env('HTTP_HOST'),
-			'secure' => false,
-			'httpOnly' => false
-		],
-		'BucketIndex' => null,
-		'LoaderAlias' => 'SwivelManager',
-		'Logger' => null,
-		'Metrics' => null,
-		'ModelAlias' => 'Swivel.SwivelFeature',
-	]
+    'Swivel' => [
+        'Cookie' => [
+            'enabled' => true,
+            'name' => 'Swivel_Bucket',
+            'expire' => 0,
+            'path' => '/',
+            'domain' => env('HTTP_HOST'),
+            'secure' => false,
+            'httpOnly' => false
+        ],
+        'BucketIndex' => null,
+        'LoaderAlias' => 'SwivelManager',
+        'Logger' => null,
+        'Metrics' => null,
+        'ModelAlias' => 'Swivel.SwivelFeature',
+    ]
 ];
 ```
 

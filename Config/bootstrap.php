@@ -41,13 +41,15 @@ App::uses('ClassRegistry', 'Utility');
 App::uses('SwivelLoader', 'Swivel.Lib');
 ClassRegistry::addObject($options['LoaderAlias'], new SwivelLoader($options));
 
-/**
- * Attach to Dispatcher.beforeDispatch event to set the cookie
- */
-App::uses('CakeEventManager', 'Event');
-CakeEventManager::instance()->attach(function ($event) use ($options) {
-    $cookieName = $options['Cookie']['name'];
-    if (!isset($_COOKIE[$cookieName]) || $_COOKIE[$cookieName] != $options['BucketIndex']) {
-        $event->data['response']->cookie($options['Cookie'] + ['value' => $options['BucketIndex']]);
-    }
-}, 'Dispatcher.beforeDispatch');
+if (!empty($options['Cookie']['enabled'])) {
+    /**
+     * Attach to Dispatcher.beforeDispatch event to set the cookie
+     */
+    App::uses('CakeEventManager', 'Event');
+    CakeEventManager::instance()->attach(function ($event) use ($options) {
+        $cookieName = $options['Cookie']['name'];
+        if (!isset($_COOKIE[$cookieName]) || $_COOKIE[$cookieName] != $options['BucketIndex']) {
+            $event->data['response']->cookie($options['Cookie'] + ['value' => $options['BucketIndex']]);
+        }
+    }, 'Dispatcher.beforeDispatch');
+}
