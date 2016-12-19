@@ -45,10 +45,16 @@ class SwivelLoader
     {
         if (empty($this->config)) {
             $options = $this->options;
+
+            if ($hasCallable = isset($options['MissingSlug']['Model']) && isset($options['MissingSlug']['Callback'])) {
+                App::uses($options['MissingSlug']['Model'], 'Model');
+            }
+
             $this->config = new \Zumba\Swivel\Config(
                 $this->getModel()->getMapData(),
                 $options['BucketIndex'],
-                $options['Logger']
+                $options['Logger'],
+                $hasCallable ? array(ClassRegistry::init($options['MissingSlug']['Model']) , $options['MissingSlug']['Callback']) : null
             );
             if (!empty($options['Metrics'])) {
                 $config->setMetrics($options['Metrics']);
