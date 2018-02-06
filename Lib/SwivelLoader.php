@@ -1,9 +1,13 @@
 <?php
 
 App::uses('ClassRegistry', 'Utility');
+App::uses('SwivelLoaderManagerProxy', 'Swivel.Lib/SwivelLoader');
 
 class SwivelLoader
 {
+
+    const ALL_ON = '1,2,3,4,5,6,7,8,9,10';
+    const ALL_OFF = '0';
 
     /**
      * Swivel config
@@ -25,6 +29,31 @@ class SwivelLoader
      * @var \Zumba\Swivel\Manager
      */
     protected $manager;
+
+    /**
+     * Array of features for the Swivel Config
+     *
+     * @var array
+     */
+    protected $features;
+
+    /**
+     * An array of feature slugs.
+     *
+     * This will only be populated by a slug if that slug is partially enabled, and it was accessed
+     * by the manager or the builder.
+     *
+     * For example, given the following slugs that were executed:
+     *
+     * 'Test.a' => '1,2,3,4,5,6,7,8,9,10'
+     * 'Test.b' => '',
+     * 'Test.c' => '1,2,3'
+     *
+     * This array will look like this:  [ 'Test.c' ]
+     *
+     * @var array
+     */
+     protected $deviated = [];
 
     /**
      * SwivelLoader only creates the swivel manager whenever you try to use it.
@@ -50,14 +79,15 @@ class SwivelLoader
                 App::uses($options['MissingSlug']['Model'], 'Model');
             }
 
+            $this->features = $this->getModel()->getMapData();
             $this->config = new \Zumba\Swivel\Config(
-                $this->getModel()->getMapData(),
+                $this->features,
                 $options['BucketIndex'],
                 $options['Logger'],
                 $hasCallable ? array(ClassRegistry::init($options['MissingSlug']['Model']) , $options['MissingSlug']['Callback']) : null
             );
             if (!empty($options['Metrics'])) {
-                $config->setMetrics($options['Metrics']);
+                $this->config->setMetrics($options['Metrics']);
             }
         }
         return $this->config;
@@ -92,7 +122,8 @@ class SwivelLoader
      */
     protected function load()
     {
-        $this->manager = new \Zumba\Swivel\Manager($this->getConfig());
+        $manager = new \Zumba\Swivel\Manager($this->getConfig());
+        $this->manager = SwivelLoaderManagerProxy::fromManager($manager, $this);
         return $this->manager;
     }
 
@@ -115,5 +146,39 @@ class SwivelLoader
             $config->setBucketIndex($index);
             $this->manager->setBucket($config->getBucket());
         }
+    }
+
+    /**
+     * Records a slug only if it has deviated.
+     *
+     * @param string $slug
+     * @return void
+     */
+    public function recordSlug($slug) {
+        if (isset($this->features[$slug]) && !in_array($slug, $this->deviated)) {
+            sort($this->features[$slug]);
+            $test = implode(',', $this->features[$slug]);
+            if ($test !== static::ALL_ON && $test !== static::ALL_OFF) {
+                $this->deviated[] = $slug;
+            }
+        }
+    }
+
+    /**
+     * Check to see if Swivel has possibly diverged code execution.
+     *
+     * @return boolean
+     */
+    public function hasDiverged() {
+        return !empty($this->features) && !empty($this->deviated);
+    }
+
+    /**
+     * Get a list of diverged features.
+     *
+     * @return boolean
+     */
+    public function getDiverged() {
+        return $this->deviated;
     }
 }
