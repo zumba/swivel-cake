@@ -6,9 +6,6 @@ App::uses('SwivelLoaderManagerProxy', 'Swivel.Lib/SwivelLoader');
 class SwivelLoader
 {
 
-    const ALL_ON = '1,2,3,4,5,6,7,8,9,10';
-    const ALL_OFF = '0';
-
     /**
      * Swivel config
      *
@@ -156,12 +153,42 @@ class SwivelLoader
      */
     public function recordSlug($slug) {
         if (isset($this->features[$slug]) && !in_array($slug, $this->deviated)) {
-            sort($this->features[$slug]);
-            $test = implode(',', $this->features[$slug]);
-            if ($test !== static::ALL_ON && $test !== static::ALL_OFF) {
+            $isAllOn = $this->isFeatureAllOn($this->features[$slug]);
+            $isAllOff = $this->isFeatureAllOff($this->features[$slug]);
+            if (!$isAllOn && !$isAllOff) {
                 $this->deviated[] = $slug;
             }
         }
+    }
+
+    /**
+     * Check if all the buckets are enabled
+     *
+     * @param array $buckets List of buckets to test
+     * @return bool
+     */
+    protected function isFeatureAllOn(array $buckets) {
+        foreach (range(1, 10) as $testBucket) {
+            if (!in_array($testBucket, $buckets)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Check if all buckets are disabled
+     *
+     * @param array $buckets List of buckets to test
+     * @return bool
+     */
+    protected function isFeatureAllOff($buckets) {
+        foreach (range(1, 10) as $testBucket) {
+            if (in_array($testBucket, $buckets)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
