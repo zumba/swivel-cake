@@ -39,9 +39,9 @@ class SwivelHelper extends AppHelper
     /**
      * Syntactic sugar for creating simple feature toggles (ternary style)
      *
-     * @param string $slug
-     * @param mixed $a
-     * @param mixed $b
+     * @param string    $slug
+     * @param callable  $a
+     * @param callable  $b
      * @return mixed
      */
     public function invoke($slug, $a, $b = null)

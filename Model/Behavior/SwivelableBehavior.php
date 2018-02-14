@@ -38,9 +38,9 @@ class SwivelableBehavior extends ModelBehavior
      * Syntactic sugar for creating simple feature toggles (ternary style)
      *
      * @param Model $model
-     * @param string $slug
-     * @param mixed $a
-     * @param mixed $b
+     * @param string    $slug
+     * @param callable  $a
+     * @param callable  $b
      * @return mixed
      */
     public function invoke(Model $model, $slug, $a, $b = null)

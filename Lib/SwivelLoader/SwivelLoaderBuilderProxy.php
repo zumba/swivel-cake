@@ -57,9 +57,9 @@ final class SwivelLoaderBuilderProxy extends SwivelLoaderProxy implements \Zumba
      *
      * Behavior will only be added if it is enabled for the user's bucket.
      *
-     * @param string $slug
-     * @param mixed  $strategy
-     * @param array  $args
+     * @param string    $slug
+     * @param callable  $strategy
+     * @param array     $args
      *
      * @return \Zumba\Swivel\BuilderInterface
      */
@@ -92,8 +92,8 @@ final class SwivelLoaderBuilderProxy extends SwivelLoaderProxy implements \Zumba
     /**
      * A fallback strategy if no added behaviors are active for the bucket.
      *
-     * @param mixed $strategy
-     * @param array $args
+     * @param callable  $strategy
+     * @param array     $args
      *
      * @return mixed
      */
@@ -105,8 +105,8 @@ final class SwivelLoaderBuilderProxy extends SwivelLoaderProxy implements \Zumba
     /**
      * Creates a new Behavior object with an attached strategy.
      *
-     * @param string $slug
-     * @param mixed  $strategy
+     * @param string    $slug
+     * @param callable  $strategy
      *
      * @return \Zumba\Swivel\Behavior
      */
