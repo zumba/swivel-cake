@@ -57,6 +57,6 @@ class SwivelableBehavior extends ModelBehavior
      * @return mixed
      */
     public function returnValue($slug, $a, $b = null) {
-        return ClassRegistry::getObject($this->loaderAlias)->getManager()returnValue($slug, $a, $b);
+        return ClassRegistry::getObject($this->loaderAlias)->getManager()->returnValue($slug, $a, $b);
     }
 }
