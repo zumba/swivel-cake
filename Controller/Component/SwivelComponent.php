@@ -45,4 +45,16 @@ class SwivelComponent extends Component
     {
         return $this->loader->getManager()->invoke($slug, $a, $b);
     }
+
+    /**
+     * Shorthand syntactic sugar for return a simple feature value given a behavior
+     *
+     * @param string    $slug
+     * @param mixed     $a
+     * @param mixed     $b
+     * @return mixed
+     */
+    public function returnValue($slug, $a, $b = null) {
+        return $this->loader->getManager()->returnValue($slug, $a, $b);
+    }
 }
