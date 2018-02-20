@@ -51,12 +51,13 @@ class SwivelableBehavior extends ModelBehavior
     /**
      * Shorthand syntactic sugar for return a simple feature value given a behavior
      *
+     * @param Model     $model
      * @param string    $slug
      * @param mixed     $a
      * @param mixed     $b
      * @return mixed
      */
-    public function returnValue($slug, $a, $b = null) {
+    public function returnValue(Model $model, $slug, $a, $b = null) {
         return ClassRegistry::getObject($this->loaderAlias)->getManager()->returnValue($slug, $a, $b);
     }
 }
