@@ -60,4 +60,24 @@ class SwivelHelper extends AppHelper
     public function returnValue($slug, $a, $b = null) {
         return $this->loader->getManager()->returnValue($slug, $a, $b);
     }
+    
+    /**
+     * Shorthand syntactic sugar for returning whether a simple feature value is enabled.
+     *
+     * @param string $slug
+     * @return bool
+     */
+    public function enabled($slug) {
+        return $this->loader->getManager()->returnValue($slug, true, false);
+    }
+
+    /**
+     * Shorthand syntactic sugar for returning whether a simple feature value is disabled.
+     *
+     * @param string $slug
+     * @return bool
+     */
+    public function disabled($slug) {
+        return $this->loader->getManager()->returnValue($slug, false, true);
+    }
 }
