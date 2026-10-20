@@ -12,9 +12,9 @@
 		}
 	],
 	"require": {
-		"php": ">=7.1",
+		"php": "^8.0",
 		"composer/installers": "^1.0",
-		"zumba/swivel": "2.1.*"
+		"zumba/swivel": "^6.0"
 	},
 	"support": {
 		"source": "https://github.com/zumba/swivel-cake"
