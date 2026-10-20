@@ -85,11 +85,11 @@ final class SwivelLoaderManagerProxy extends SwivelLoaderProxy implements \Zumba
     /**
      * Set the Swivel Bucket.
      *
-     * @param \Zumba\Swivel\BucketInterface $bucket
+     * @param \Zumba\Swivel\BucketInterface|null $bucket
      *
      * @return \Zumba\Swivel\ManagerInterface
      */
-    public function setBucket(\Zumba\Swivel\BucketInterface $bucket = null) {
+    public function setBucket(?\Zumba\Swivel\BucketInterface $bucket = null) {
         return $this->proxy->setBucket($bucket);
     }
 
