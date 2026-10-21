@@ -11,7 +11,7 @@ behavior classes to be used in your CakePHP application.
 
 | swivel-cake | zumba/swivel | PHP |
 | ----------- | ------------ | --- |
-| `3.*` | `^6.0` | `^8.0` |
+| `3.*` | `^6.0.1` | `^8.0` |
 | `2.*` | `2.1.*` | `>=7.1` |
 
 ## Installation

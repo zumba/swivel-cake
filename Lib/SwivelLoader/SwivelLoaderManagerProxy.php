@@ -7,7 +7,6 @@ use Psr\Log\LoggerInterface;
 use Zumba\Swivel\BucketInterface;
 use Zumba\Swivel\BuilderInterface;
 use Zumba\Swivel\ManagerInterface;
-use Zumba\Swivel\Map;
 
 final class SwivelLoaderManagerProxy extends SwivelLoaderProxy implements ManagerInterface {
 
@@ -64,14 +63,7 @@ final class SwivelLoaderManagerProxy extends SwivelLoaderProxy implements Manage
      * @return mixed
      */
     public function invoke(string $slug, mixed $a, mixed $b = null): mixed {
-        if ($this->hasBehaviorPart($slug)) {
-            $result = $this->proxy->invoke($slug, $a, $b);
-        } else {
-            $result = $this->proxy->forFeature($slug)
-                ->addBehavior('', $a)
-                ->defaultBehavior($b ?: fn() => $b)
-                ->execute();
-        }
+        $result = $this->proxy->invoke($slug, $a, $b);
         $this->loader->recordSlug($slug);
         return $result;
     }
@@ -90,31 +82,9 @@ final class SwivelLoaderManagerProxy extends SwivelLoaderProxy implements Manage
      * @see \Zumba\Swivel\Manager
      */
     public function returnValue(string $slug, mixed $a, mixed $b = null): mixed {
-        if ($this->hasBehaviorPart($slug)) {
-            $result = $this->proxy->returnValue($slug, $a, $b);
-        } else {
-            $result = $this->proxy->forFeature($slug)
-                ->addValue('', $a)
-                ->defaultValue($b)
-                ->execute();
-        }
+        $result = $this->proxy->returnValue($slug, $a, $b);
         $this->loader->recordSlug($slug);
         return $result;
-    }
-
-    /**
-     * Whether the slug is in "Feature.behavior" form.
-     *
-     * zumba/swivel 2.x accepted a bare feature slug in invoke() and returnValue()
-     * (the whole feature is the behavior). zumba/swivel 6 destructures the slug
-     * into exactly two parts and throws a TypeError for a bare slug, so the proxy
-     * handles that form itself to keep existing call sites working.
-     *
-     * @param string $slug
-     * @return bool
-     */
-    private function hasBehaviorPart(string $slug): bool {
-        return str_contains($slug, Map::DELIMITER);
     }
 
     /**
