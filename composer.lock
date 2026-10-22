@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "99cb7baf83bf3a7504df6532c3f78257",
+    "content-hash": "92c516fb18babd6e46cf91502cca448a",
     "packages": [
         {
             "name": "composer/installers",
@@ -199,25 +199,25 @@
         },
         {
             "name": "zumba/swivel",
-            "version": "v2.1.5",
+            "version": "v6.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zumba/swivel.git",
-                "reference": "922c4555bcc18cac6bbf73c9d0051d5e5f752634"
+                "reference": "f4402334a120655741dfa13697f966449655ee5a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zumba/swivel/zipball/922c4555bcc18cac6bbf73c9d0051d5e5f752634",
-                "reference": "922c4555bcc18cac6bbf73c9d0051d5e5f752634",
+                "url": "https://api.github.com/repos/zumba/swivel/zipball/f4402334a120655741dfa13697f966449655ee5a",
+                "reference": "f4402334a120655741dfa13697f966449655ee5a",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.6",
-                "psr/log": "1.0.*"
+                "php": "^8.0",
+                "psr/log": "^1.0 | ^2.0 | ^3.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "4.7.*",
-                "squizlabs/php_codesniffer": "2.6.*"
+                "phpunit/phpunit": "^9.5",
+                "squizlabs/php_codesniffer": "^3.6"
             },
             "type": "library",
             "autoload": {
@@ -249,9 +249,9 @@
             ],
             "support": {
                 "issues": "https://github.com/zumba/swivel/issues",
-                "source": "https://github.com/zumba/swivel/tree/v2.1.5"
+                "source": "https://github.com/zumba/swivel/tree/v6.0.1"
             },
-            "time": "2018-12-12T20:17:27+00:00"
+            "time": "2026-10-22T13:08:17+00:00"
         }
     ],
     "packages-dev": [],
@@ -261,8 +261,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.4"
+        "php": "^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.6.0"
 }

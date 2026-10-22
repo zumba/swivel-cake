@@ -7,6 +7,13 @@ code have up to 10 different behaviors.
 This plugin is a bridge between CakePHP and Swivel. It provides a helper, component and
 behavior classes to be used in your CakePHP application.
 
+## Requirements
+
+| swivel-cake | zumba/swivel | PHP |
+| ----------- | ------------ | --- |
+| `3.*` | `^6.0.1` | `^8.0` |
+| `2.*` | `2.1.*` | `>=7.1` |
+
 ## Installation
 
 You can install Swivel Cake into your project using [composer](http://getcomposer.org).
@@ -14,7 +21,7 @@ For existing applications you can add the following to your `composer.json` file
 
 ```
     "require": {
-        "zumba/swivel-cake": "1.*"
+        "zumba/swivel-cake": "3.*"
     }
 ```
 

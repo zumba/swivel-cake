@@ -23,10 +23,16 @@ $options = Configure::read('Swivel');
 if (empty($options['BucketIndex'])) {
 
     /**
-     * Get the bucket index from the cookie, or a random bucket
+     * Get the bucket index from the cookie, or a random bucket.
+     *
+     * zumba/swivel 6 requires an integer index, so anything that is not a
+     * whole number between 1 and 10 is replaced by a random bucket.
      */
     $key = isset($options['Cookie']['name']) ? $options['Cookie']['name'] : 'Swivel_Bucket';
-    $index = isset($_COOKIE[$key]) ? $_COOKIE[$key] : mt_rand(1, 10);
+    $index = isset($_COOKIE[$key]) ? (int)$_COOKIE[$key] : 0;
+    if ($index < 1 || $index > 10) {
+        $index = mt_rand(1, 10);
+    }
 
     /**
      * Add the index to the SwivelLoader options

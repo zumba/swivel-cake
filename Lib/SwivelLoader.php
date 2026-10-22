@@ -77,10 +77,11 @@ class SwivelLoader
             }
 
             $this->features = $this->getModel()->getMapData();
+            $bucketIndex = isset($options['BucketIndex']) ? (int)$options['BucketIndex'] : null;
             $this->config = new \Zumba\Swivel\Config(
                 $this->features,
-                $options['BucketIndex'],
-                $options['Logger'],
+                $bucketIndex,
+                isset($options['Logger']) ? $options['Logger'] : null,
                 $hasCallable ? array(ClassRegistry::init($options['MissingSlug']['Model']) , $options['MissingSlug']['Callback']) : null
             );
             if (!empty($options['Metrics'])) {
@@ -136,6 +137,7 @@ class SwivelLoader
         if (!is_numeric($index) || $index < 1 || $index > 10) {
             throw new InvalidArgumentException("$index is not a valid bucket index.");
         }
+        $index = (int)$index;
         if (empty($this->manager)) {
             $this->options['BucketIndex'] = $index;
         } else {

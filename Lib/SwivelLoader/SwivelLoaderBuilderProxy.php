@@ -2,28 +2,34 @@
 
 App::uses('SwivelLoaderProxy', 'Swivel.Lib/SwivelLoader');
 
-final class SwivelLoaderBuilderProxy extends SwivelLoaderProxy implements \Zumba\Swivel\BuilderInterface {
+use Psr\Log\LoggerInterface;
+use Zumba\Swivel\BehaviorInterface;
+use Zumba\Swivel\Builder;
+use Zumba\Swivel\BuilderInterface;
+use Zumba\Swivel\MetricsInterface;
+
+final class SwivelLoaderBuilderProxy extends SwivelLoaderProxy implements BuilderInterface {
 
     /**
      * Parent slug prefix
      *
      * @var string
      */
-    private $prefix = '';
+    private string $prefix = '';
 
     /**
      * An array of feature slugs that have been proxied.
      *
      * @var array
      */
-    private $slugs = [];
+    private array $slugs = [];
 
     /**
      * Swivel Loader
      *
      * @var SwivelLoader
      */
-    protected $loader;
+    protected SwivelLoader $loader;
 
     /**
      * Creates a new BuilderProxy from a Swivel Builder.
@@ -33,7 +39,7 @@ final class SwivelLoaderBuilderProxy extends SwivelLoaderProxy implements \Zumba
      * @param string $slug
      * @return \Zumba\Swivel\BuilderInterface
      */
-    public static function fromBuilder(\Zumba\Swivel\BuilderInterface $builder, SwivelLoader $loader, $slug) {
+    public static function fromBuilder(BuilderInterface $builder, SwivelLoader $loader, string $slug): BuilderInterface {
         $proxy = new static($builder, $loader);
         $proxy->setPrefix($slug);
         return $proxy;
@@ -47,7 +53,7 @@ final class SwivelLoaderBuilderProxy extends SwivelLoaderProxy implements \Zumba
      * @param \Zumba\Swivel\BuilderInterface $builder
      * @param SwivelLoader $loader
      */
-    private function __construct(\Zumba\Swivel\BuilderInterface $builder, SwivelLoader $loader) {
+    private function __construct(BuilderInterface $builder, SwivelLoader $loader) {
         $this->proxy = $builder;
         $this->loader = $loader;
     }
@@ -63,7 +69,7 @@ final class SwivelLoaderBuilderProxy extends SwivelLoaderProxy implements \Zumba
      *
      * @return \Zumba\Swivel\BuilderInterface
      */
-    public function addBehavior($slug, $strategy, array $args = []) {
+    public function addBehavior(string $slug, mixed $strategy, array $args = []): BuilderInterface {
         $this->proxy->addBehavior($slug, $strategy, $args);
 
         $this->addSlug($slug);
@@ -81,7 +87,7 @@ final class SwivelLoaderBuilderProxy extends SwivelLoaderProxy implements \Zumba
      *
      * @return \Zumba\Swivel\BuilderInterface
      */
-    public function addValue($slug, $value) {
+    public function addValue(string $slug, mixed $value): BuilderInterface {
         $this->proxy->addValue($slug, $value);
 
         $this->addSlug($slug);
@@ -95,24 +101,38 @@ final class SwivelLoaderBuilderProxy extends SwivelLoaderProxy implements \Zumba
      * @param callable  $strategy
      * @param array     $args
      *
-     * @return mixed
+     * @return \Zumba\Swivel\BuilderInterface
      */
-    public function defaultBehavior($strategy, array $args = []) {
+    public function defaultBehavior(mixed $strategy, array $args = []): BuilderInterface {
         $this->proxy->defaultBehavior($strategy, $args);
+        return $this;
+    }
+
+    /**
+     * A fallback value if no added behaviors are active for the bucket.
+     *
+     * @param mixed $value
+     *
+     * @return \Zumba\Swivel\BuilderInterface
+     */
+    public function defaultValue(mixed $value): BuilderInterface {
+        $this->proxy->defaultValue($value);
         return $this;
     }
 
     /**
      * Creates a new Behavior object with an attached strategy.
      *
-     * @param string    $slug
-     * @param callable  $strategy
+     * The default for $strategy mirrors \Zumba\Swivel\Builder so that calling
+     * getBehavior($callable) with a single argument keeps working through the proxy.
      *
-     * @return \Zumba\Swivel\Behavior
+     * @param string|callable $slug
+     * @param mixed           $strategy
+     *
+     * @return \Zumba\Swivel\BehaviorInterface
      */
-    public function getBehavior($slug, $strategy = null) {
-        $this->proxy->getBehavior($slug, $strategy);
-        return $this;
+    public function getBehavior(string|callable $slug, mixed $strategy = Builder::DEFAULT_STRATEGY): BehaviorInterface {
+        return $this->proxy->getBehavior($slug, $strategy);
     }
 
     /**
@@ -120,7 +140,7 @@ final class SwivelLoaderBuilderProxy extends SwivelLoaderProxy implements \Zumba
      *
      * @return \Zumba\Swivel\BuilderInterface
      */
-    public function noDefault() {
+    public function noDefault(): BuilderInterface {
         $this->proxy->noDefault();
         return $this;
     }
@@ -130,7 +150,7 @@ final class SwivelLoaderBuilderProxy extends SwivelLoaderProxy implements \Zumba
      *
      * @return mixed
      */
-    public function execute() {
+    public function execute(): mixed {
         $result = $this->proxy->execute();
         $slugs = array_unique($this->slugs);
         array_walk($slugs, [$this->loader, 'recordSlug']);
@@ -141,11 +161,10 @@ final class SwivelLoaderBuilderProxy extends SwivelLoaderProxy implements \Zumba
      * Set a metrics object.
      *
      * @param \Zumba\Swivel\MetricsInterface $metrics
-     * @return \Zumba\Swivel\BuilderInterface
+     * @return void
      */
-    public function setMetrics(\Zumba\Swivel\MetricsInterface $metrics) {
+    public function setMetrics(MetricsInterface $metrics): void {
         $this->proxy->setMetrics($metrics);
-        return $this;
     }
 
     /**
@@ -154,7 +173,7 @@ final class SwivelLoaderBuilderProxy extends SwivelLoaderProxy implements \Zumba
      * @param \Psr\Log\LoggerInterface $logger
      * @return void
      */
-    public function setLogger(\Psr\Log\LoggerInterface $logger) {
+    public function setLogger(LoggerInterface $logger): void {
         $this->proxy->setLogger($logger);
     }
 
@@ -164,7 +183,7 @@ final class SwivelLoaderBuilderProxy extends SwivelLoaderProxy implements \Zumba
      * @param string $slug
      * @return void
      */
-    private function setPrefix($slug) {
+    private function setPrefix(string $slug): void {
         $this->prefix = $slug . '.';
     }
 
@@ -174,7 +193,7 @@ final class SwivelLoaderBuilderProxy extends SwivelLoaderProxy implements \Zumba
      * @param string $slug
      * @return void
      */
-    private function addSlug($slug) {
+    private function addSlug(string $slug): void {
         $this->slugs[] = $this->prefix . $slug;
     }
 }

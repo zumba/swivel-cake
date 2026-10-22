@@ -3,14 +3,19 @@
 App::uses('SwivelLoaderProxy', 'Swivel.Lib/SwivelLoader');
 App::uses('SwivelLoaderBuilderProxy', 'Swivel.Lib/SwivelLoader');
 
-final class SwivelLoaderManagerProxy extends SwivelLoaderProxy implements \Zumba\Swivel\ManagerInterface {
+use Psr\Log\LoggerInterface;
+use Zumba\Swivel\BucketInterface;
+use Zumba\Swivel\BuilderInterface;
+use Zumba\Swivel\ManagerInterface;
+
+final class SwivelLoaderManagerProxy extends SwivelLoaderProxy implements ManagerInterface {
 
     /**
      * Swivel Loader
      *
      * @var SwivelLoader
      */
-    protected $loader;
+    protected SwivelLoader $loader;
 
     /**
      * Creates a new ManagerProxy from a Swivel Manager.
@@ -19,7 +24,7 @@ final class SwivelLoaderManagerProxy extends SwivelLoaderProxy implements \Zumba
      * @param SwivelLoader $loader
      * @return \Zumba\Swivel\ManagerInterface
      */
-    public static function fromManager(\Zumba\Swivel\ManagerInterface $manager, SwivelLoader $loader) {
+    public static function fromManager(ManagerInterface $manager, SwivelLoader $loader): ManagerInterface {
         return new static($manager, $loader);
     }
 
@@ -32,7 +37,7 @@ final class SwivelLoaderManagerProxy extends SwivelLoaderProxy implements \Zumba
      * @param \Zumba\Swivel\ManagerInterface $manager
      * @param SwivelLoader $loader
      */
-    private function __construct(\Zumba\Swivel\ManagerInterface $manager, SwivelLoader $loader) {
+    private function __construct(ManagerInterface $manager, SwivelLoader $loader) {
         $this->proxy = $manager;
         $this->loader = $loader;
     }
@@ -44,7 +49,7 @@ final class SwivelLoaderManagerProxy extends SwivelLoaderProxy implements \Zumba
      *
      * @return \Zumba\Swivel\BuilderInterface
      */
-    public function forFeature($slug) {
+    public function forFeature(string $slug): BuilderInterface {
         return SwivelLoaderBuilderProxy::fromBuilder($this->proxy->forFeature($slug), $this->loader, $slug);
     }
 
@@ -57,7 +62,7 @@ final class SwivelLoaderManagerProxy extends SwivelLoaderProxy implements \Zumba
      *
      * @return mixed
      */
-    public function invoke($slug, $a, $b = null) {
+    public function invoke(string $slug, mixed $a, mixed $b = null): mixed {
         $result = $this->proxy->invoke($slug, $a, $b);
         $this->loader->recordSlug($slug);
         return $result;
@@ -74,9 +79,9 @@ final class SwivelLoaderManagerProxy extends SwivelLoaderProxy implements \Zumba
      *
      * @return mixed
      *
-     * @see \Zumba\Swivel\ManagerInterface
+     * @see \Zumba\Swivel\Manager
      */
-    public function returnValue($slug, $a, $b = null) {
+    public function returnValue(string $slug, mixed $a, mixed $b = null): mixed {
         $result = $this->proxy->returnValue($slug, $a, $b);
         $this->loader->recordSlug($slug);
         return $result;
@@ -85,12 +90,16 @@ final class SwivelLoaderManagerProxy extends SwivelLoaderProxy implements \Zumba
     /**
      * Set the Swivel Bucket.
      *
-     * @param \Zumba\Swivel\BucketInterface $bucket
+     * Returns the proxy (not the wrapped manager) so that chained calls keep
+     * recording slugs.
+     *
+     * @param \Zumba\Swivel\BucketInterface|null $bucket
      *
      * @return \Zumba\Swivel\ManagerInterface
      */
-    public function setBucket(\Zumba\Swivel\BucketInterface $bucket = null) {
-        return $this->proxy->setBucket($bucket);
+    public function setBucket(?BucketInterface $bucket = null): ManagerInterface {
+        $this->proxy->setBucket($bucket);
+        return $this;
     }
 
     /**
@@ -99,7 +108,7 @@ final class SwivelLoaderManagerProxy extends SwivelLoaderProxy implements \Zumba
      * @param \Psr\Log\LoggerInterface $logger
      * @return void
      */
-    public function setLogger(\Psr\Log\LoggerInterface $logger) {
+    public function setLogger(LoggerInterface $logger): void {
         $this->proxy->setLogger($logger);
     }
 }
