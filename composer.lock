@@ -199,16 +199,16 @@
         },
         {
             "name": "zumba/swivel",
-            "version": "V6.0.0",
+            "version": "v6.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zumba/swivel.git",
-                "reference": "c2ace8d5cfde0a339ef0f8c34e488559daf3c23e"
+                "reference": "f4402334a120655741dfa13697f966449655ee5a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zumba/swivel/zipball/c2ace8d5cfde0a339ef0f8c34e488559daf3c23e",
-                "reference": "c2ace8d5cfde0a339ef0f8c34e488559daf3c23e",
+                "url": "https://api.github.com/repos/zumba/swivel/zipball/f4402334a120655741dfa13697f966449655ee5a",
+                "reference": "f4402334a120655741dfa13697f966449655ee5a",
                 "shasum": ""
             },
             "require": {
@@ -249,9 +249,9 @@
             ],
             "support": {
                 "issues": "https://github.com/zumba/swivel/issues",
-                "source": "https://github.com/zumba/swivel/tree/V6.0.0"
+                "source": "https://github.com/zumba/swivel/tree/v6.0.1"
             },
-            "time": "2026-10-07T13:23:25+00:00"
+            "time": "2026-10-22T13:08:17+00:00"
         }
     ],
     "packages-dev": [],
